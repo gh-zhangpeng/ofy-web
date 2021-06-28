@@ -4,9 +4,9 @@
     <el-breadcrumb-item>日程管理</el-breadcrumb-item>
   </el-breadcrumb>
   <el-table :data="schedules" style="width: 100%">
-    <el-table-column prop="date" label="日期" width="180"> </el-table-column>
     <el-table-column prop="title" label="日程" width="180"> </el-table-column>
-    <el-table-column prop="address" label="地址"> </el-table-column>
+    <el-table-column prop="content" label="内容" width="180"> </el-table-column>
+    <el-table-column prop="time" label="时间" width="180"> </el-table-column>
   </el-table>
 </template>
 
@@ -19,16 +19,21 @@ export default {
   setup() {
     const schedules = ref([]);
     const getSchedules = function (params) {
-      console.log(Format.formatTimestamp(1624620379))
       api
         .getSchedules()
         .then(function (response) {
           for (var i = 0; i < response.data.schedules.length; i++) {
-            schedule = {
-              time: 1
-            }
+            console.log(response.data.schedules[i].begin_time)
+            let begin_time = Format.formatTimestamp(response.data.schedules[i].begin_time)
+            console.log(begin_time)
+            var schedule = {
+              title: response.data.schedules[i].title,
+              content: response.data.schedules[i].content,
+              time: begin_time + "-" + Format.formatTimestamp(response.data.schedules[i].end_time),
+            };
+            schedules.value.push(schedule)
+            console.log(schedules.value)
           }
-          // /
         })
         .catch((error) => {
           console.log(error);
