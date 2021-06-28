@@ -23,13 +23,12 @@ export default {
         .getSchedules()
         .then(function (response) {
           for (var i = 0; i < response.data.schedules.length; i++) {
-            console.log(response.data.schedules[i].begin_time)
             let begin_time = Format.formatTimestamp(response.data.schedules[i].begin_time)
-            console.log(begin_time)
+            let end_time = Format.formatTimestamp(response.data.schedules[i].end_time)
             var schedule = {
               title: response.data.schedules[i].title,
               content: response.data.schedules[i].content,
-              time: begin_time + "-" + Format.formatTimestamp(response.data.schedules[i].end_time),
+              time: begin_time + " - " + end_time,
             };
             schedules.value.push(schedule)
             console.log(schedules.value)

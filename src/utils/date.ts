@@ -1,6 +1,6 @@
 export const Format = {
     formatTimestamp: function (timestamp: number, format = "yyyy-MM-dd hh:mm:ss") {
-        var date = new Date(timestamp);
+        var date = new Date(timestamp*1000);
         var o : any = {
             "M+": date.getMonth() + 1,                 //月份   
             "d+": date.getDate(),                    //日   
